@@ -1,0 +1,21 @@
+<h1>Students</h1>
+
+<%= link_to "New Student", new_student_path if authenticated? %>
+
+<div id="students">
+  <% @students.each do |student| %>
+    <div>
+      <%= image_tag(student.profile_picture, :size => "100x100") if student.profile_picture.attached? %> <br>
+      <b><%= student.name %> </b><br>
+      <div>
+        <%= link_to student.nusp, student %>
+        <%= student.email %>
+        <%= student.entry_date %>
+        <%= student.pronouns %>
+        <%= student.number_semesters %>
+        <%= student.number_failures %>
+      </div>
+    </div>
+    <br>
+  <% end %>
+</div>

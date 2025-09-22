@@ -1,0 +1,9 @@
+Here are just some notes that may need to be taken into consideration when programming here:
+
+* Some gems may not be able to be installed with bundler due to errors. Try using "gem install" with them
+    - importmap-rails
+    - turbo-rails
+    - nokogiri
+    - erb
+
+* Also, try running "bundle update" before doing "bundle install"

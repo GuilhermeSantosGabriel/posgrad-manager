@@ -1,0 +1,9 @@
+<h1><%= @student.name %></h1>
+
+<%= image_tag @student.profile_picture if @student.profile_picture.attached? %> <br>
+
+<%= link_to "Back", students_path %>
+<% if authenticated? %>
+    <%= link_to "Edit", edit_student_path(@student) %>
+    <%= button_to "Delete", @student, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+<% end %>

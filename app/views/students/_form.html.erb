@@ -1,0 +1,21 @@
+<%= form_with model: @student do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %><br>
+    <%= form.label :nusp %>
+    <%= form.text_field :nusp %><br>
+    <%= form.label :email %>
+    <%= form.text_field :email %><br>
+    <%= form.label :password %>
+    <%= form.password_field :password_digest %><br>
+  </div>
+
+  <div>
+    <%= form.label :profile_picture, style: "display: block" %>
+    <%= form.file_field :profile_picture, accept: "image/*" %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

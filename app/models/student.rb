@@ -1,4 +1,4 @@
 class Student < ApplicationRecord
-  def index
-    @students = Students.all
+    has_one_attached :profile_picture
+    validates :name, :nusp, :email, presence: true
 end
