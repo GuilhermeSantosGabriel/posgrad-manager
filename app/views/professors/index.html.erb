@@ -1,0 +1,8 @@
+<h1>Programa de pós-graduação EACH-SI: corpo docente</h1>
+
+<div>
+    <%= @professors.each do |professor| %>
+        Nome: <%= professor.name %>
+        Área de Pesquisa: <%= professor.research_area %>
+    <% end %>
+</div>
