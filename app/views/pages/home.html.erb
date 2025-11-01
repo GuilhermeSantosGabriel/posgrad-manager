@@ -1,0 +1,31 @@
+<h1> wassup beijing </h1>
+
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-start">
+  <% if user_signed_in? %>
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 text-center">
+      <p class="text-lg text-gray-700 mb-4">Welcome <span class="font-semibold"><%= current_user.nusp %></span>!</p>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transition duration-200 text-lg" %>
+    </div>
+    <div>
+      <%= link_to "become student", new_student_path %> <br>
+      <%= link_to "Edit account", edit_user_registration_path %>
+    </div>
+  <% else %>
+    <div class="mt-20 text-center">
+      <%= button_to "Sign in", new_user_session_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold px-12 py-6 rounded-lg shadow-xl transition duration-200 text-3xl inline-block" %>
+    </div>
+  <% end %>
+</body>
+
+<div>
+  <h1>users</h1>
+
+  <div id="users">
+    <% @users.each do |user| %>
+      <%= user.email %>
+      <%= user.nusp %>
+      <%= user.name %>
+      <br>
+    <% end %>
+  </div>
+</div>
