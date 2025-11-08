@@ -1,0 +1,49 @@
+<div>
+    ------ ORIENTANDOS INFO ------
+</div>
+
+<div>
+    <div>
+        <h2> INFO </h2>
+        <p> Nome: <%= student.name %> </p>
+        <p> Número USP: <%= student.user.nusp %> </p>
+        <p> <%= link_to "Contatar", "" %> </p>
+        <p> <%= link_to "Gerar PDF", "" %> </p>
+    </div>
+
+    <div>
+        <h3> VISÃO GERAL </h3>
+        <p> Tipo de Curso: <%= student.role %> </p>
+        <p> Data de Ingresso: <%= student.join_date %> </p>
+        <p> Último Relatório: <%= @last_report %> </p>
+        <p> Semestre Atual: <%= student.semester %>
+            <% if student.role == "Mestrado" %>
+            /4
+            <% else %>
+            /8
+            <% end %> </p>
+        <p> Progresso: <%= student.credits %>/<%= student.credits_needed %> </p>
+    </div>
+
+    <div>
+        <h3> ACADÊMICO </h3>
+        <p> Créditos: <%= student.credits %>/<%= student.credits_needed %> </p>
+        <p> <%= student.calculate_progress %>% completado </p>
+        <p> Exame de Qualificação: Aprovado (EDIT) </p>
+        <p> Dissertação/Tese: (link) </p>
+        <p> Próximo prazo: (edit) </p>
+    </div>
+
+    <div>
+        <h3> Pesquisa </h3>
+        <p> Publicações: <%= student.publications.count %> </p>
+    </div>
+
+    <div>
+        <% if student.reports.any? %>
+            <%= render partial: "reports/professor", collection: student.reports, as: :report %>
+        <% else %>
+            <p class="text-gray-500 italic">Nenhum relatório ainda ainda.</p>
+        <% end %>
+    </div>
+</div>

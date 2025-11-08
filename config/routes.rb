@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "student_home", to: "students#home", as: "student_home"
+  get "professor_home", to: "professors#home", as: "professor_home"
   post :change_professor, to: "students#change_professor"
 
 

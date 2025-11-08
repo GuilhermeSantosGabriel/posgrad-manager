@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_08_031127) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_08_202010) do
   create_table "administrators", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -39,6 +39,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_031127) do
 
   create_table "professors", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "department"
     t.string "name"
     t.integer "professor_id", null: false
     t.string "research_area"
@@ -53,9 +54,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_031127) do
     t.datetime "created_at", null: false
     t.string "link"
     t.string "name"
+    t.integer "professor_id"
     t.date "publication_date"
     t.integer "student_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["professor_id"], name: "index_publications_on_professor_id"
     t.index ["student_id"], name: "index_publications_on_student_id"
   end
 
@@ -63,6 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_031127) do
     t.string "coordinator_comments"
     t.datetime "created_at", null: false
     t.date "date_sent"
+    t.string "owner", default: "Student"
     t.string "professor_comments"
     t.datetime "review_date"
     t.string "reviewer"
@@ -76,6 +80,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_031127) do
 
   create_table "students", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "credits", default: 0
+    t.integer "credits_needed", default: 0
     t.string "email"
     t.date "join_date"
     t.date "lattes_last_update"
@@ -83,6 +89,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_031127) do
     t.string "name"
     t.string "pretended_career"
     t.string "role"
+    t.integer "semester", default: 0
     t.integer "student_id", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
@@ -123,6 +130,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_031127) do
   add_foreign_key "courses", "professors"
   add_foreign_key "professors", "professors"
   add_foreign_key "professors", "users"
+  add_foreign_key "publications", "professors"
   add_foreign_key "publications", "students"
   add_foreign_key "reports", "students"
   add_foreign_key "students", "students"

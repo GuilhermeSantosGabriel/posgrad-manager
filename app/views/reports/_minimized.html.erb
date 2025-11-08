@@ -1,10 +1,16 @@
-<div>
-    <p> Período: <%= report.semester %>o Sem. <%= report.year %> </p>
-    <p> Data de Envio: <%= report.date_sent %> </p>
-    <p> Status: <%= report.status %> </p>
-    <p> Avaliado em: <%= report.review_date %> </p>
-    <p> Avaliado por: <%= report.reviewer %> </p>
-    <p> Status: <%= report.status %> </p>
-
-    <p> <%= link_to "Visualizar", report_path(report) %> </p>
-</div>
+<tr class="border-b border-blue-100 hover:bg-blue-50">
+    <td class="px-4 py-2 whitespace-nowrap"><%= report.semester %>o Sem. <%= report.year %> </td>
+    <td class="px-4 py-2 whitespace-nowrap"><%= report.date_sent %></td>
+    <td class="px-4 py-2 whitespace-nowrap">
+    <% status_color = case report.status.downcase
+        when 'aprovado' then 'bg-green-100 text-green-800'
+        when 'aprovado com ressalvas' then 'bg-yellow-100 text-yellow-800'
+        when 'pendente' then 'bg-gray-100 text-gray-700'
+        else 'bg-red-100 text-red-800'
+        end %>
+    <span class="inline-block px-2 py-1 rounded text-xs font-semibold <%= status_color %>"><%= report.status %></span>
+    </td>
+    <td class="px-4 py-2 whitespace-nowrap"><%= report.review_date %> </td>
+    <td class="px-4 py-2 whitespace-nowrap"><%= report.reviewer %></td>
+    <td class="px-4 py-2 whitespace-nowrap text-blue-600"><%= link_to "<o>", report_path(report) %> </td>
+</tr>

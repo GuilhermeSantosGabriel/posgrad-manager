@@ -1,0 +1,12 @@
+<!-- aqui ficam os valores das metricas do professor (# relatorios, # creditos, etc) -->
+
+<div>
+    ------ STATS ------
+</div>
+
+<div>
+    <p> Total de Orientandos: <%= @students.count %> </p>
+    <p> Relatórios pendentes: <%= @reports_due.count %> </p>
+    <p> Próximo prazo: <%= @next_due_date %> </p>
+    <p> Publicações <%= @professor.publications.count %> </p>
+</div>

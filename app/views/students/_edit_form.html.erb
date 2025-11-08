@@ -28,12 +28,11 @@
         <%= form.select :role, ["Mestrado", "Doutorado"], class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
 
-    <!-- Falta definir a conexão com a outra entidade -->
-        <p> Orientador </p>
-    <%# <div>
+    <!-- Falta arrumar a conexão via ProfessorMentorsStudent -->
+    <div>
         <%= form.label "Orientador", class: "block text-gray-700 font-medium mb-1" %>
-        <%#= form.select :professor_id, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-    <%#/div> %>
+        <%# <%= = form.colletion_select :professor_id, Professor.order(:name), class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
 
     <div>
         <%= form.label "Lattes", class: "block text-gray-700 font-medium mb-1" %>

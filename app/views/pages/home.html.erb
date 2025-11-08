@@ -23,7 +23,23 @@
   <% end %>
 </body>
 
-
+<div>
+  <% if user_signed_in? %>
+    <% if Student.where(user_id: current_user.id).exists? %>
+      <p> Você está logado como >ESTUDANTE< </p>
+      <%= link_to "Aba dos estudantes", student_home_path %>
+    <% else %>
+      <% if Professor.where(user_id: current_user.id).exists? %>
+        <p> Você está logado como >PROFESSOR< </p>
+        <%= link_to "Aba dos professores", professor_home_path %>
+      <% else %>
+        <p> Virar professor </p>
+      <% end %>
+      <p> Virar estudante 
+      <%= link_to "become student", new_student_path %> </p>
+    <% end %>
+  <% end %>
+</div>
 
 <div>
   <h1>users</h1>

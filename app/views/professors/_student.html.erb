@@ -1,0 +1,18 @@
+<!-- Resumo do aluno -->
+
+<div>
+    ------ ORIENTANDOS ------
+</div>
+
+<div>
+    <p> Ativo <%#= student.active %> </p>
+    <p> <%= student.name %> </p>
+    <p> <%= student.role %> </p>
+    <p> <%= student.semester %>
+        <% if student.role == "Mestrado" %>
+        /4
+        <% else %>
+        /8
+        <% end %> </p>
+    <p> Progresso: <%= student.calculate_progress %>% </p>
+</div>

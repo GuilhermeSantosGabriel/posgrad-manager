@@ -1,9 +1,11 @@
 class StudentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_student, only: %i[ home show edit update change_professor ]
+  before_action :set_student, only: %i[ home show edit update change_professor]
   before_action :check_permissions, only: %i[ home edit ]
-  before_action :set_professor, only: %i[ change_professor ]
+  before_action :find_professor, only: %i[ change_professor ]
   before_action :calculate_credits, only: %i[ home ]
+  before_action :set_professor, only: %i[ home ]
+  before_action :list_professors, only: %i[ home ]
 
   def home
     @reports = @student.reports.order(year: :asc, semester: :asc)
@@ -63,8 +65,16 @@ class StudentsController < ApplicationController
     @student = Student.find_by(params[:id])
   end
 
-  def set_professor
+  def find_professor
     @professor = Professor.find_by(params[:professor_id])
+  end
+
+  def set_professor
+    @professor = Professor.find_by(id: ProfessorMentorsStudent.where(student: @student).pluck(:professor_id))
+  end
+
+  def list_professors
+    @professors = Professor.all.order(:name)
   end
 
   def student_params

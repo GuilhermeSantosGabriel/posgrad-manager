@@ -1,0 +1,20 @@
+<!-- aqui fica um menu dos alunos e os dados deles -->
+
+<div>
+    <p> Meus orientandos </p>
+    <% if @students.any? %>
+      <%= render partial: "student", collection: @students, as: :student %>
+    <% else %>
+      <p class="text-gray-500 italic">Nenhum orientando ainda ainda.</p>
+    <% end %>
+</div>
+
+<!-- Depois divide naquele jeito de conseguir visualizar só o que selecionar, n sei fazer isso -->
+<div>
+  <p> Informações dos orientandos </p>
+   <% if @students.any? %>
+      <%= render partial: "student_info", collection: @students, as: :student %>
+    <% else %>
+      <p class="text-gray-500 italic">Nenhum orientando ainda ainda.</p>
+    <% end %>
+</div>

@@ -1,0 +1,27 @@
+<section class="bg-blue-50 border border-blue-200 rounded-md px-4 py-3 text-blue-800 flex items-center space-x-2">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path d="M12 12c2 0 2-2 4-2H8c0 2 2 2 4 2z"></path>
+    <circle cx="12" cy="12" r="10" stroke="none"></circle>
+    </svg>
+    <p><strong>Bem-vindo, <%= current_user.name %>!</strong> Navegue entre seu perfil e relatórios</p>
+</section>
+
+<section class="flex items-center justify-between bg-white border border-blue-200 rounded-md px-4 py-3 shadow-sm">
+    <div class="flex items-center space-x-4">
+    <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-semibold uppercase">
+        <%= current_user.name%>
+    </div>
+    <div>
+        <h2 class="font-semibold text-lg text-blue-900"><%= current_user.name %></h2>
+        <p class="text-sm text-gray-700">
+        <% if @student.role == "Doutorado" %>
+            Doutorando 
+        <% else %>
+            Mestrando 
+        <% end %> - PPgSI EACH-USP
+        </p>
+    </div>
+    <span class="ml-4 inline-block px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">Perfil Completo</span>
+    </div>
+    <%= link_to 'Editar Perfil', edit_student_path(@student), class: "bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-md" %>
+</section>

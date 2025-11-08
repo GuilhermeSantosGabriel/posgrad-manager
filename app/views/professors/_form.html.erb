@@ -1,10 +1,10 @@
-<%= form_with(model: student, local: true, class: "space-y-8") do |form| %>
+<%= form_with(model: professor, local: true, class: "space-y-8") do |form| %>
 
-  <% if student.errors.any? %>
+  <% if professor.errors.any? %>
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-      <h2 class="font-semibold mb-2"><%= pluralize(student.errors.count, "error") %> proibiu este estudante de ser salvo:</h2>
+      <h2 class="font-semibold mb-2"><%= pluralize(professor.errors.count, "error") %> proibiu este professor de ser salvo:</h2>
       <ul class="list-disc list-inside space-y-1">
-        <% student.errors.each do |error| %>
+        <% professor.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -17,8 +17,8 @@
   </div>
 
   <div>
-    <%= form.label "student id", class: "block text-gray-700 font-medium mb-1" %>
-    <%= form.text_field :student_id, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    <%= form.label "professor id", class: "block text-gray-700 font-medium mb-1" %>
+    <%= form.text_field :professor_id, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
   </div>
   
   <div>

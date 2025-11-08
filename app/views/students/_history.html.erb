@@ -1,0 +1,25 @@
+<section class="mt-8 bg-white border border-blue-200 rounded-md shadow p-4 overflow-x-auto">
+    <h3 class="font-semibold text-blue-800 mb-4 flex items-center space-x-2">
+        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17v-6h6v6m-3-6v6"/></svg>
+        <span>Histórico de Relatórios</span>
+    </h3>
+    <table class="min-w-full text-sm text-left text-gray-700">
+        <thead class="bg-blue-50 text-blue-700">
+            <tr>
+            <th scope="col" class="px-4 py-2 whitespace-nowrap border-b border-blue-200">Período</th>
+            <th scope="col" class="px-4 py-2 whitespace-nowrap border-b border-blue-200">Data de Envio</th>
+            <th scope="col" class="px-4 py-2 whitespace-nowrap border-b border-blue-200">Status</th>
+            <th scope="col" class="px-4 py-2 whitespace-nowrap border-b border-blue-200">Avaliado em</th>
+            <th scope="col" class="px-4 py-2 whitespace-nowrap border-b border-blue-200">Avaliado por</th>
+            <th scope="col" class="px-4 py-2 whitespace-nowrap border-b border-blue-200">Visualizar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if @reports.any? %>
+                <%= render partial: "reports/minimized", collection: @reports, as: :report %>
+            <% else %>
+                <p class="text-gray-500 italic">Nenhum relatório ainda ainda.</p>
+            <% end %>
+        </tbody>
+    </table>
+</section>
