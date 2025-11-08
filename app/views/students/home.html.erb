@@ -4,14 +4,13 @@
   </div>
 <% end %>
 
-<h1> bem vindo ao inferno porra </h1>
+<h1> Seja bem-vindo, estudante! </h1>
 
 <div>
     <%= render @student %>
 
-    <%= render_partial: "student" %>
-    <%= render_partial: "info" %>
-    <%= render_partial: "stats" %>
-    <%= render_partial: "history" %>
+    <%= render "info", student: @student %>
+    <%= render "stats", student: @student %>
+    <%= render "history", student: @student %>
 
 </div>

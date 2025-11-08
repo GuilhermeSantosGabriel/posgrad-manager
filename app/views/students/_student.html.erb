@@ -1,2 +1,15 @@
 <!-- aqui vai ficar o avatar + nome + subtitulo + botao pra editar perfil -->
-<p> hewwo </p>
+<div>
+    ------ BANNER ------
+</div>
+
+<div>
+    <p> <%= @student.name %> </p>
+    <p> <% if @student.role == "Doutorado" %>
+            Doutorando 
+        <% else %>
+            Mestrando 
+        <% end %>
+        - PPgSI EACH-USP </p>
+    <p> <%= link_to "Editar perfil", edit_student_path(@student) %> </p>
+</div>

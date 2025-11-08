@@ -17,6 +17,11 @@
   </div>
 
   <div>
+    <%= form.label "student id", class: "block text-gray-700 font-medium mb-1" %>
+    <%= form.text_field :student_id, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+  
+  <div>
     <%= form.submit "Confirmar", class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded shadow transition duration-200" %>
   </div>
 <% end %>

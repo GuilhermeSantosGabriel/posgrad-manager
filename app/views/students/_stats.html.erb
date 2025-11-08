@@ -1,3 +1,12 @@
 <!-- aqui ficam os valores das metricas do aluno (# relatorios, # creditos, etc) -->
 
-<p>  </p>
+<div>
+    ------ STATS ------
+</div>
+
+<div>
+    <p> Total de relatórios: <%= @student.reports.count %> </p>
+    <p> Créditos cursados: <%= @credits %> </p>
+    <p> Total de publicações: <%= @student.publications.count %> </p>
+    <p> Progresso média <%= @student.name %> (ZERO IDEIA COMO FAZER) </p>
+</div>

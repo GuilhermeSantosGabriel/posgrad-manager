@@ -1,3 +1,12 @@
 <!-- aqui fica o historico de relatorios -->
+<div>
+    ------ HISTÓRICO DE RELATÓRIOS ------
+</div>
 
-<p> o/ <p>
+<div>
+    <% if @reports.any? %>
+      <%= render partial: "reports/minimized", collection: @reports, as: :report %>
+    <% else %>
+      <p class="text-gray-500 italic">Nenhum relatório ainda ainda.</p>
+    <% end %>
+</div>
