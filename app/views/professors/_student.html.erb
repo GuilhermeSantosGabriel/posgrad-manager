@@ -1,18 +1,14 @@
-<!-- Resumo do aluno -->
-
-<div>
-    ------ ORIENTANDOS ------
-</div>
-
-<div>
-    <p> Ativo <%#= student.active %> </p>
-    <p> <%= student.name %> </p>
-    <p> <%= student.role %> </p>
-    <p> <%= student.semester %>
-        <% if student.role == "Mestrado" %>
-        /4
-        <% else %>
-        /8
-        <% end %> </p>
-    <p> Progresso: <%= student.calculate_progress %>% </p>
+<div class="mb-4 last:mb-0 border border-gray-200 rounded p-3">
+    <div class="flex justify-between items-center mb-1">
+        <p class="font-semibold text-gray-800"><%= student.name %></p>
+        <span class="inline-block bg-green-100 text-green-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+            <p> Ativo <%#= student.active %> </p>
+        </span>
+    </div>
+        <p class="text-sm text-gray-600 mb-1"><%= student.role %> &bull; Sem. <%= student.semester %></p>
+        <p class="font-semibold text-xs text-gray-700 mb-1">Progresso</p>
+    <div class="w-full bg-gray-200 rounded h-2.5">
+        <div style="width:<%= student.calculate_progress %>%" class="h-2.5 rounded blue"></div>
+    </div>
+    <p class="text-right text-xs text-gray-500 mt-0.5"><%= student.calculate_progress %>%</p>
 </div>
