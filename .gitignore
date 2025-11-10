@@ -36,5 +36,6 @@
 
 # pessoal
 todo.txt
+add_db.txt
 /app/assets/builds/*
 !/app/assets/builds/.keep

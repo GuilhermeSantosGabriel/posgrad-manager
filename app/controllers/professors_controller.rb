@@ -32,7 +32,7 @@ class ProfessorsController < ApplicationController
   end
 
   def create
-    @professor = current_user.build_Professor(professor_params)
+    @professor = current_user.build_professor(professor_params)
     if @professor.save
       redirect_to root_path, notice: "Professor created!"
     else

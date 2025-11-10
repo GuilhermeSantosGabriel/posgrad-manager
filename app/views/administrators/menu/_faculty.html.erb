@@ -1,0 +1,12 @@
+<div>
+    ----------- DOCENTES ------------
+</div>
+
+<div>
+    <p> Docentes </p>
+    <% if @professors.any? %>
+        <%= render partial: "/administrators/detailed_info/professors", collection: @professors, as: :professor %>
+    <% else %>
+        <p class="text-gray-500 italic">Nenhum docente ainda.</p>
+    <% end %>
+</div>

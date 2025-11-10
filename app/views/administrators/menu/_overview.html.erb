@@ -1,0 +1,14 @@
+<div>
+    ----------- OVERVIEW ------------
+</div>
+
+<div>
+    <p> VISÃO GERAL </p>
+    <%# adicionar o ".user.where(status: "active") %>
+    <p> <%= @students.count %> Alunos ativos </p>
+    <p> <%= @students.where(role: "Mestrado").count %> Mestrandos </p>
+    <p> <%= @students.where(role: "Doutorado").count %> Doutorandos </p>
+    <p> <%= @professors.count %> Orientadores ativos </p>
+
+    <p> <%= @pending_reports.count %> Relatórios pendentes </p>
+</div>

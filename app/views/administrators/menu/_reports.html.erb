@@ -1,0 +1,15 @@
+<div>
+    ----------- RELATÓRIOS ------------
+</div>
+
+<div>
+    <p> Relatórios </p>
+    <!-- Adicionar um jeito de filtrar os reports aqui -->
+    <!-- Por status, orientador, aluno, período -->
+    <!-- Mesma coisa para filtros (e com ano/semestre aqui tbm) -->
+    <% if @reports.any? %>
+        <%= render partial: "/administrators/detailed_info/reports", collection: @reports, as: :report %>
+    <% else %>
+        <p class="text-gray-500 italic">Nenhum relatório ainda.</p>
+    <% end %>
+</div>

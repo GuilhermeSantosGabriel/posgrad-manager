@@ -5,17 +5,15 @@
 <% end %>
 
 <div class="min-h-screen bg-gray-50 p-6 font-sans text-gray-800">
-  <!-- Header -->
   <header class="flex items-center justify-between mb-6">
     <%= render "header", professor: @professor %>
   </header>
 
-  <!-- Stats -->
   <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
     <%= render "stats", professor: @professor %>
   </section>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <%= render "alumni", professor: @professor %>
+    <%= render "/professors/menu/alumni", professor: @professor %>
   </div>
 </div>

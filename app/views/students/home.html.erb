@@ -16,10 +16,10 @@
     </nav>
 
     <%= render @student %>
-    <%= render "info", student: @student %>
-    <%= render "report_notice", student: @student %>
-    <%= render "stats", student: @student %>
-    <%= render "history", student: @student %>
+    <%= render "/students/menu/info", student: @student %>
+    <%= render "/students/menu/report_notice", student: @student %>
+    <%= render "/students/menu/stats", student: @student %>
+    <%= render "/students/menu/history", student: @student %>
 
   </main>
 </div>

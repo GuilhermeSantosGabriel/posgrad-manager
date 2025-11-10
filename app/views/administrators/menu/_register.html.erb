@@ -1,0 +1,18 @@
+<div>
+    ----------- CADASTRAR ------------
+</div>
+
+<div>
+    <p> Escolha entre >ALUNO<> e >DOCENTE< </p>
+    <p> ERRO! por enquanto não funciona a criação de usuário novo <p>
+    <div>
+        <p> ALUNO </p>
+
+        <%= render "/administrators/detailed_info/student_form", user: @new_user %>
+    </div>
+
+    <div>
+        <p> DOCENTE </p>
+        <%= render "/administrators/detailed_info/professor_form", user: @new_user %>
+    </div>
+</div>
