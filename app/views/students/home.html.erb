@@ -4,8 +4,6 @@
   </div>
 <% end %>
 
-<h1> Seja bem-vindo, estudante! </h1>
-
 <div class="min-h-screen bg-gradient-to-b from-white to-orange-50 px-4 py-8">
   <main class="max-w-6xl mx-auto space-y-6 bg-white rounded-md shadow p-6">
     <!-- Navigation Tabs -->
@@ -15,7 +13,7 @@
       historico
     </nav>
 
-    <%= render @student %>
+    <%= render @student, student: @student %>
     <%= render "/students/menu/info", student: @student %>
     <%= render "/students/menu/report_notice", student: @student %>
     <%= render "/students/menu/stats", student: @student %>

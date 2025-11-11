@@ -3,16 +3,16 @@
     <path d="M12 12c2 0 2-2 4-2H8c0 2 2 2 4 2z"></path>
     <circle cx="12" cy="12" r="10" stroke="none"></circle>
     </svg>
-    <p><strong>Bem-vindo, <%= current_user.name %>!</strong> Navegue entre seu perfil e relatórios</p>
+    <p><strong>Bem-vindo, <%= student.name %>!</strong> Navegue entre seu perfil e relatórios</p>
 </section>
 
 <section class="flex items-center justify-between bg-white border border-blue-200 rounded-md px-4 py-3 shadow-sm">
     <div class="flex items-center space-x-4">
     <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-semibold uppercase">
-        <%= current_user.name%>
+        <%= student.name[0] %>
     </div>
     <div>
-        <h2 class="font-semibold text-lg text-blue-900"><%= current_user.name %></h2>
+        <h2 class="font-semibold text-lg text-blue-900"><%= student.name %></h2>
         <p class="text-sm text-gray-700">
         <% if @student.role == "Doutorado" %>
             Doutorando 

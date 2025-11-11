@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "student-info-panel" do %>
+  <%= render partial: "professors/user_info/student_info", locals: { student: @student } %>
+<% end %>
