@@ -4,28 +4,12 @@
   </div>
 <% end %>
 
-<div class="min-h-screen bg-gray-50 p-6 font-sans text-gray-800">
+<div class="min-h-screen bg-gradient-to-r from-blue-50 via-white to-orange-50 p-6 font-sans text-gray-800">
   <header class="flex items-center justify-between mb-6">
     <%= render "header", administrator: @administrator %>
   </header>
 
-  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-    <%= render "/administrators/menu/overview", administrator: @administrator %>
+  <section class="max-w-7xl mx-auto">
+    <%= render "/administrators/menu/info", administrator: @administrator %>
   </section>
-
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <%= render "/administrators/menu/alumni", administrator: @administrator %>
-  </div>
-
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <%= render "/administrators/menu/faculty", administrator: @administrator %>
-  </div>
-
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <%= render "/administrators/menu/reports", administrator: @administrator %>
-  </div>
-
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <%= render "/administrators/menu/register", administrator: @administrator %>
-  </div>
 </div>
