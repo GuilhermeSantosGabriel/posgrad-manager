@@ -11,9 +11,14 @@
                 </div>
             <% end %>
 
-            <div class="field">
+            <div class="nusp">
                 <p><%= f.label "Número USP" %></p>
                 <p><%= f.text_field :nusp, autofocus: true %></p>
+            </div>
+
+            <div class="default password">
+                <%= f.hidden_field :password %>
+                <%= f.hidden_field :password_confirmation %>
             </div>
 
             <div class="space-y-1">

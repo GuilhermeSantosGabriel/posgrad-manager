@@ -20,8 +20,11 @@ class UsersController < ApplicationController
     # # params[:user][:password_confirmation] = params[:nusp]
     # params.merge!(:password, params[:nusp])
     # params.merge!(:password_confirmation, params[:nusp])
-    params[:password] = "14656895"
-    params[:password_confirmation] = "14656895"
+    # params[:password] = "14656895"
+    # params[:password_confirmation] = "14656895"
+    # params[:user][:password] = params.nusp
+    #params[:user][:password_confirmation] = params.nusp
+
 
 
     # password_params = ActionController::Parameters.new(password: params[:nusp], password_confirmation: params[:nusp])
