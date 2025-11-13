@@ -2,7 +2,7 @@ class AdministratorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_administrator, only: %i[ home show edit update ]
   before_action :check_permissions, only: %i[ home edit ]
-  before_action :set_students, only: %i[ home ]
+  before_action :set_students, only: %i[ home export_pdf ]
   before_action :set_professors, only: %i[ home ]
   before_action :set_reports, only: %i[ home ]
   before_action :set_pending_reports, only: %i[ home ]
@@ -47,6 +47,20 @@ class AdministratorsController < ApplicationController
     end
   end
 
+  def export_pdf
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "students_list",
+              template: "reports/export_pdf",
+              formats: [:html, :pdf],
+              layout: false,
+              page_size: "A4",
+              margin: { top: 10, bottom: 10, left: 10, right: 10 },
+              disposition: "attachment"
+      end
+    end
+  end
 
   private
 

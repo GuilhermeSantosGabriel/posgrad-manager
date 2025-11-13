@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resources :administrators
 
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
   get 'professor_home', to: 'professors#home', as: 'professor_home'
   get 'admin_home', to: 'administrators#home', as: 'adm_home'
   post :change_professor, to: 'students#change_professor'
+  get 'export_pdf', to: 'administrators#export_pdf', as: 'export_pdf'
 
   authenticated :user do
     root to: 'pages#home', as: :authenticated_user_root

@@ -77,3 +77,5 @@ end
 
 
 gem "tailwindcss-rails", "~> 4.4"
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
