@@ -1,11 +1,22 @@
 class StudentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_student, only: %i[ home show edit update change_professor]
-  before_action :check_permissions, only: %i[ home edit ]
-  before_action :find_professor, only: %i[ change_professor ]
-  before_action :calculate_credits, only: %i[ home ]
-  before_action :set_professor, only: %i[ home ]
-  before_action :list_professors, only: %i[ home ]
+  before_action :set_student, only: %i[home show edit update change_professor]
+  before_action :check_permissions, only: %i[home edit]
+  before_action :find_professor, only: %i[change_professor]
+  before_action :calculate_credits, only: %i[home]
+  before_action :set_professor, only: %i[home]
+  before_action :list_professors, only: %i[home]
+
+  def navigation
+    @student = Student.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        render partial: "students/tabs/#{params[:tab] || 'profile'}", locals: { student: @student }
+      end
+    end
+  end
 
   def home
     @reports = @student.reports.order(year: :asc, semester: :asc)
@@ -15,31 +26,29 @@ class StudentsController < ApplicationController
   end
 
   def change_professor
-    if !ProfessorMentorsStudent.where(student: @student, professor: @professor).exists?
-      ProfessorMentorsStudent.where(sutdent: @student).delete_all
-      ProfessorMentorsStudent.create!(student: @student, professor: @professor)
-    end
+    return if ProfessorMentorsStudent.where(student: @student, professor: @professor).exists?
+
+    ProfessorMentorsStudent.where(sutdent: @student).delete_all
+    ProfessorMentorsStudent.create!(student: @student, professor: @professor)
   end
 
   def calculate_credits
-    @courses = Course.where(id: TakesOnCourse.where(student:@student).pluck(:course_id))
+    @courses = Course.where(id: TakesOnCourse.where(student: @student).pluck(:course_id))
     @credits = 0
     for course in @courses do
-      if course.credits >= 0
-        @credits += course.credits
-      end
+      @credits += course.credits if course.credits >= 0
     end
   end
 
   def edit
-    if !@student.id == current_user.id
-      redirect_to root_path, notice: "You're not the correct user to edit this."
-    end
+    return unless !@student.id == current_user.id
+
+    redirect_to root_path, notice: "You're not the correct user to edit this."
   end
 
   def update
     if @student.update(student_params)
-      redirect_to student_home_path, notice: "Profile was successfully updated!"
+      redirect_to student_home_path, notice: 'Profile was successfully updated!'
     else
       render :edit
     end
@@ -52,7 +61,7 @@ class StudentsController < ApplicationController
   def create
     @student = current_user.build_Student(student_params)
     if @student.save
-      redirect_to root_path, notice: "Student created!"
+      redirect_to root_path, notice: 'Student created!'
     else
       format.html { render :new, status: :unprocessable_entity }
       format.json { render json: @student.errors, status: :unprocessable_entity }
@@ -78,12 +87,13 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:name, :student_id, :role, :email, :lattes_link, :lattes_last_update, :pretended_career, :join_date)
+    params.require(:student).permit(:name, :student_id, :role, :email, :lattes_link, :lattes_last_update,
+                                    :pretended_career, :join_date)
   end
 
   def check_permissions
-    if !Student.where(user_id: current_user.id).exists?
-      redirect_to root_path, notice: "You're not a student."
-    end
+    return if Student.where(user_id: current_user.id).exists?
+
+    redirect_to root_path, notice: "You're not a student."
   end
 end

@@ -5,19 +5,17 @@
 <% end %>
 
 <div class="min-h-screen bg-gradient-to-b from-white to-orange-50 px-4 py-8">
-  <main class="max-w-6xl mx-auto space-y-6 bg-white rounded-md shadow p-6">
-    <!-- Navigation Tabs -->
-    <nav class="flex space-x-4 mb-6">
-      perfil
-      relatorio
-      historico
-    </nav>
+  <header class="flex items-center justify-between mb-6">
+    <%= render "header", student: @student %>
+  </header>
 
-    <%= render @student, student: @student %>
-    <%= render "/students/menu/info", student: @student %>
-    <%= render "/students/menu/report_notice", student: @student %>
-    <%= render "/students/menu/stats", student: @student %>
-    <%= render "/students/menu/history", student: @student %>
+  <div class="mt-4">
+    <%= render "/students/navigation", student: @student %>
+  </div>
 
+  <main class="max-w-6xl mx-auto space-y-6 bg-white rounded-md shadow p-6  mt-4">
+    <%= turbo_frame_tag "student" do %> 
+      <%= render "students/tabs/#{params[:tab] || 'profile'}", student: @student %> 
+    <% end %>
   </main>
 </div>
