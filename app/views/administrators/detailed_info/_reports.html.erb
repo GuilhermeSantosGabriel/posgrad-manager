@@ -1,14 +1,12 @@
 <div>
-    <p> Aluno: <%= report.student.user.name %> </p>
     <p> Período: <%= report.semester %>o Sem. <%= report.year %> </p>
-    <p> Data de Envio: <%= report.date_sent %> </p>
-    <p> Orientador: <%= report.reviewer %> </p>
-    <p> Status: <%= report.status %> </p>
-    <p> Responsável: <%= report.owner %> </p>
-    <p> <%= link_to "Visualizar", "" %> </p>
-    <p> <%= link_to "Baixar em PDF", "" %> </p>
-
-    <% if report.status == "Administrator "%>
-        <p> <%= link_to "Avaliar", "" %>
+    <p> Prazos de entrega: </p>
+        <p> Estudante: <%= report.due_date_student %> </p>
+        <p> Docente: <%= report.due_date_professor %> </p>
+        <p> Coordenação: <%= report.due_date_administrator %> </p>
+    <% if report.report_infos.any? %>
+        <%= render partial: "/administrators/detailed_info/reports_info", collection: report.report_infos, as: :report %>
+    <% else %>
+        <p class="text-gray-500 italic">Nenhuma resposta ainda.</p>
     <% end %>
 </div>

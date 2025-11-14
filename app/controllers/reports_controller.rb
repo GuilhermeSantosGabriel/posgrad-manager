@@ -37,6 +37,7 @@ class ReportsController < ApplicationController
     @report = Report.find_by(params[:id])
   end
 
+  # TODO: edit these + add other report controllers
   def report_params
     params.require(:report).permit(:name, :report_id, :professor_comments, :coordinator_comments, :reviewer, :review_date, :status, :student_id )
   end

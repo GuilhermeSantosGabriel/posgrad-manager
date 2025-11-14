@@ -1,4 +1,4 @@
 class Report < ApplicationRecord
-  belongs_to :student
-  
+  has_many :report_infos
+  has_many :report_fields  
 end

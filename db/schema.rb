@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_08_202010) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_13_211637) do
   create_table "administrators", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -62,20 +62,53 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_202010) do
     t.index ["student_id"], name: "index_publications_on_student_id"
   end
 
-  create_table "reports", force: :cascade do |t|
+  create_table "report_field_answers", force: :cascade do |t|
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.integer "report_fields_id", null: false
+    t.integer "report_info_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_fields_id"], name: "index_report_field_answers_on_report_fields_id"
+    t.index ["report_info_id"], name: "index_report_field_answers_on_report_info_id"
+  end
+
+  create_table "report_fields", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "field_type", default: "Text"
+    t.string "options"
+    t.string "question", null: false
+    t.integer "report_id", null: false
+    t.boolean "required", default: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_report_fields_on_report_id"
+  end
+
+  create_table "report_infos", force: :cascade do |t|
     t.string "coordinator_comments"
     t.datetime "created_at", null: false
     t.date "date_sent"
     t.string "owner", default: "Student"
     t.string "professor_comments"
+    t.integer "report_id", null: false
     t.datetime "review_date"
-    t.string "reviewer"
+    t.integer "reviewer_id"
+    t.string "status", default: "Draft"
+    t.integer "student_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id", "student_id"], name: "index_report_infos_on_report_id_and_student_id", unique: true
+    t.index ["report_id"], name: "index_report_infos_on_report_id"
+    t.index ["student_id"], name: "index_report_infos_on_student_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "due_date_administrator"
+    t.date "due_date_professor"
+    t.date "due_date_student"
+    t.string "owner", default: "Student"
     t.integer "semester"
-    t.string "status"
-    t.integer "student_id"
     t.datetime "updated_at", null: false
     t.integer "year"
-    t.index ["student_id"], name: "index_reports_on_student_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -132,7 +165,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_202010) do
   add_foreign_key "professors", "users"
   add_foreign_key "publications", "professors"
   add_foreign_key "publications", "students"
-  add_foreign_key "reports", "students"
+  add_foreign_key "report_field_answers", "report_fields", column: "report_fields_id"
+  add_foreign_key "report_field_answers", "report_infos"
+  add_foreign_key "report_fields", "reports"
+  add_foreign_key "report_infos", "professors", column: "reviewer_id"
+  add_foreign_key "report_infos", "reports"
+  add_foreign_key "report_infos", "students"
   add_foreign_key "students", "students"
   add_foreign_key "students", "users"
 end

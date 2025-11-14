@@ -81,7 +81,8 @@ class AdministratorsController < ApplicationController
   end
 
   def set_pending_reports
-    @pending_reports = Report.where(owner: "Admin")
+    @pending_reports = Report.where(owner: "Admin").where("due_date_administrator > ?", Date.today)
+
   end
 
   def check_permissions

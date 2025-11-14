@@ -1,9 +1,6 @@
 <div>
     <p> Período: <%= report.semester %>o Sem. <%= report.year %> </p>
-    <p> Data de Envio: <%= report.date_sent %> </p>
-    <p> Status: <%= report.status %> </p>
-    <p> Avaliado em: <%= report.review_date %> </p>
-    <p> Avaliado por: <%= report.reviewer %> </p>
+
 
     <p> <%= link_to "Visualizar", report_path(report) %> </p>
     <p> <%= link_to "Avaliar", "" %> </p>

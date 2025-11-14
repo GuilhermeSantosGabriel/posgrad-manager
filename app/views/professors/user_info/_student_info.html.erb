@@ -116,8 +116,8 @@
 
 <!-- Tab Hist'orico -->
 <div class="max-w-4xl mx-auto bg-white rounded-xl border border-gray-200 p-6 space-y-4 text-gray-900 " id="historico-tab">
-    <% if student.reports.any? %>
-        <%= render partial: "reports/professor", collection: student.reports, as: :report %>
+    <% if Report.where(id: @student.report_infos.pluck(:report_id)).any? %>
+        <%= render partial: "reports/professor", collection: Report.where(id: @student.report_infos.pluck(:report_id)), as: :report %>
     <% else %>
         <p class="text-gray-500 italic">Nenhum relatório ainda ainda.</p>
     <% end %>

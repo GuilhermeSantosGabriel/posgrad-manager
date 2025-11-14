@@ -1,0 +1,15 @@
+<div>
+    <p> Aluno: <%= report.student.user.name %> </p>
+    <p> Data de Envio: <%= report.date_sent %> </p>
+    <p> Orientador: <%= Professor.find_by(id: report.reviewer_id).user.name %> </p>
+    <p> Status: <%= report.status %> </p>
+    <p> Responsável: <%= report.owner %> </p>
+    <p> Data da Avaliação: <%= report.review_date %> </p>
+    <p> <%= link_to "Visualizar", "" %> </p>   
+    <%# aí aqui vai linkar pra um parcial do Report e vai ter todas as info de respostas, etc %>
+    <p> <%= link_to "Baixar em PDF", export_pdf_path(format: :pdf) %> </p>
+
+    <% if report.status == "Administrator "%>
+        <p> <%= link_to "Avaliar", "" %> </p>
+    <% end %>
+</div>

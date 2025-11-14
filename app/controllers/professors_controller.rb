@@ -56,11 +56,14 @@ class ProfessorsController < ApplicationController
   end
 
   def next_due_date
-    @next_due_date = '2025-12-15'
+    # especificar que é DESTE professor
+    @next_due_date = Report.all.order(due_date_professor: :asc).first.due_date_professor
   end
 
   def calculate_reports_due
-    @reports_due = Report.where(student: @students, owner: 'Student')
+    # é due pra esse professor fazer ou os estudantes que tão devendo??
+    # trocar owner?
+    @reports_due = Report.where(owner: 'Professor', id: ReportInfo.where(reviewer_id: Professor.first.id).pluck(:report_id))
   end
 
   private
