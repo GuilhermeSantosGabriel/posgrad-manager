@@ -59,7 +59,7 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = current_user.build_Student(student_params)
+    @student = current_user.build_student(student_params)
     if @student.save
       redirect_to root_path, notice: 'Student created!'
     else

@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   end
   resources :administrators
 
-
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
