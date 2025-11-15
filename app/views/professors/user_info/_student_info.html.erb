@@ -16,7 +16,6 @@
       </div>
   </div>
   <%= render "professors/user_info/navigation", student: @student %>
-  <%= render "professors/user_info/tabs/geral", student: @student %>
-  <%= render "professors/user_info/tabs/academico", student: @student %>
-  <%= render "professors/user_info/tabs/historico", student: @student %>
+  <% selected_tab = %w[geral academico historico].include?(params[:tab]) ? params[:tab] : 'geral' %>
+  <%= render "professors/user_info/tabs/#{selected_tab}", student: @student %>
 </turbo-frame>

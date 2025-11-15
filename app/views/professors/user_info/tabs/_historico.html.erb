@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto bg-white rounded-xl border border-gray-200 p-6 space-y-4 text-gray-900 " id="historico-tab">
+<div class="max-w-4xl mx-auto bg-white rounded-xl border border-gray-200 p-6 space-y-4 text-gray-900 mt-4" id="historico-tab">
       <% if Report.where(id: @student.report_infos.pluck(:report_id)).any? %>
           <%= render partial: "reports/professor", collection: Report.where(id: @student.report_infos.pluck(:report_id)), as: :report %>
       <% else %>
