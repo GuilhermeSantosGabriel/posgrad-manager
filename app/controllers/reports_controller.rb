@@ -1,14 +1,8 @@
 class ReportsController < ApplicationController
+  require 'prawn'
   before_action :authenticate_user!
   before_action :set_report, only: %i[show edit update destroy]
   before_action :check_permissions, only: %i[new create]
-
-  # def export_pdf
-  #   @report_info = ReportInfo.find(params[:id])
-  #   @report = @report_info.report
-  #   @answers = @report_info.report_field_answers.includes(:report_field)
-  #   @student = @report_info.student
-  # end
 
   def show
     @report = Report.find(params[:id])
@@ -70,48 +64,67 @@ class ReportsController < ApplicationController
     redirect_to adm_home_path, notice: 'Relatório removido!'
   end
 
-  # def export_pdf
-  #   @report_info = ReportInfo.find(params[:id])
-  #   @report = @report_info.report
-  #   @answers = @report_info.report_field_answers.includes(:report_field)
-  #   @student = @report_info.student
-  #   Prawn::Document.generate("relatorio.pdf") do
-  #     text @student.user&.full_name
-  #     text @student.user&.email
-  #     text @student.program_level
-  #     text @student.professor&.user&.full_name
-  #     text Time.current.strftime("%d/%m/%Y às %I:%M %p")
-  #     text "respostas:"
-  #     @answers.each do |ans|
-  #           text ans.report_field.question
-  #           text ans.answer.presence
-  #           text ans.report_field.required
-  #           text "----------"
-  #     end
-
-  #     text "Hello World!"
-  #   end
-  # end
-
   def export_pdf
     @report_info = ReportInfo.find(params[:id])
     @report = @report_info.report
     @answers = @report_info.report_field_answers.includes(:report_field)
     @student = @report_info.student
-    
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: 'relatorio_semestral',
-               template: 'reports/export_pdf',
-               formats: %i[html pdf],
-               layout: false,
-               page_size: 'A4',
-               margin: { top: 10, bottom: 10, left: 10, right: 10 },
-               disposition: 'attachment'
-      end
+
+    pdf = Prawn::Document.new(page_size: 'A4', margin: 30)
+
+    pdf.fill_color '2762ff'
+    pdf.text "Aluno: #{@student.user&.full_name}", size: 16, style: :bold, align: :center
+    pdf.text "Email do aluno: #{@student.user&.email}", size: 16, style: :bold, align: :center
+    pdf.text "Programa: #{@student.program_level}", size: 16, style: :bold, align: :center
+    pdf.text "Professor orientador: #{@student.professor&.user&.full_name}", size: 16, style: :bold, align: :center
+    pdf.text "Gerado em: #{Time.current.strftime('%d/%m/%Y às %I:%M %p')}", size: 16, style: :bold, align: :center
+
+    pdf.move_down 20
+    pdf.fill_color '9212ff'
+    pdf.text 'Respostas:', size: 16, style: :bold
+
+    pdf.stroke_horizontal_rule
+
+    @answers.each do |ans|
+      pdf.fill_color '9212ff'
+      pdf.text ans.report_field.question, size: 12
+      pdf.fill_color '2762ff'
+      pdf.text ans.answer.presence, size: 11
+      pdf.text ans.report_field.required.to_s, size: 11
+      pdf.move_down 20
+      pdf.stroke_horizontal_rule
     end
+
+    send_data pdf.render,
+              filename: 'relatorio.pdf',
+              type: 'application/pdf',
+              template: 'reports/export_pdf',
+              formats: %i[html pdf],
+              layout: false,
+              page_size: 'A4',
+              margin: { top: 10, bottom: 10, left: 10, right: 10 },
+              disposition: 'attachment'
   end
+
+  # def export_pdf
+  #   @report_info = ReportInfo.find(params[:id])
+  #   @report = @report_info.report
+  #   @answers = @report_info.report_field_answers.includes(:report_field)
+  #   @student = @report_info.student
+
+  #   respond_to do |format|
+  #     format.html
+  #     format.pdf do
+  #       render pdf: 'relatorio_semestral',
+  #              template: 'reports/export_pdf',
+  #              formats: %i[html pdf],
+  #              layout: false,
+  #              page_size: 'A4',
+  #              margin: { top: 10, bottom: 10, left: 10, right: 10 },
+  #              disposition: 'attachment'
+  #     end
+  #   end
+  # end
 
   private
 
