@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # !! Se você deixar descomentado, as rotas de login/logout NÃO FUNCIONAM
   # !! mas se deixar comentado, não da pra editar perfil nem nada do tipo
   # !! descobre como que faz a rota certa, onegai m(_ _)m
-  resources :users
+  # resources :users
 
   namespace :admin do
     resources :students,       only: %i[new create edit update]

@@ -39,35 +39,17 @@
         </div>
       <% end %>
 
-      <%= form.fields_for :student  do |student_form| %>
+      <%= form.fields_for :professor  do |professor_form| %>
         <div>
-            <%= student_form.label "Tipo de curso", class: "block text-gray-800 font-semibold mb-2" %>
-            <%= student_form.select :program_level, ["Mestrado", "Doutorado"], class: "border rounded px-3 py-2 w-full" %>
+            <%= professor_form.label "Área de Pesquisa", class: "block text-gray-800 font-semibold mb-2" %>
+            <%= professor_form.text_field :research_area, class: "border rounded px-3 py-2 w-full" %>
         </div>
 
+        <!-- Se a CCP falar
+         mais, coloca mais na lista aqui -->
         <div>
-            <%= student_form.label :professor_id, "Orientador", class: "block text-gray-800 font-semibold mb-2" %>
-            <%= student_form.collection_select :professor_id, Professor.includes(:user), :id, :full_name, { prompt: "Escolha um professor" }, class: "border rounded px-3 py-2 w-full" %>
-        </div>
-
-        <div>
-            <%= student_form.label "Currículo Lattes", class: "block text-gray-700 font-medium mb-1" %>
-            <%= student_form.url_field :lattes_link, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-        </div>
-
-        <div>
-            <%= student_form.label "Última atualização no Lattes", class: "block text-gray-700 font-medium mb-1" %>
-            <%= student_form.date_field :lattes_last_update, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-        </div>
-
-        <div>
-            <%= student_form.label "Carreira pretendida após graduação", class: "block text-gray-700 font-medium mb-1" %>
-            <%= student_form.select :pretended_career, ["Acadêmica", "Trabalho"], class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-        </div>
-
-        <div>
-            <%= student_form.label "Data de ingresso", class: "block text-gray-700 font-medium mb-1" %>
-            <%= student_form.date_field :join_date, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+            <%= professor_form.label "Departamento", class: "block text-gray-800 font-semibold mb-2" %>
+            <%= professor_form.select :department, ["SI", "Coordenação"], class: "border rounded px-3 py-2 w-full" %>
         </div>
       <% end %>
     </ul>

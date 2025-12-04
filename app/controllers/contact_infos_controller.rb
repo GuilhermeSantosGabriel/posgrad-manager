@@ -36,11 +36,7 @@ class ContactInfosController < ApplicationController
   private
 
   def set_contact_info
-    if (User.find(params[:user_id])&.contact_info != nil) 
-      @contact_info = User.find(params[:user_id])&.contact_info
-    else
-      redirect_to root_path, notice: 'Sem informações de contato definidas'
-    end
+    @contact_info = ContactInfo.find_by(params[:id])
   end
 
   def contact_info_params

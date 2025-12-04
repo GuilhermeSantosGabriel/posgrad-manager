@@ -14,11 +14,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to user_path(@user), notice: 'Usuário atualizado com sucesso!', data: { turbo: false }
-    else
-      redirect_to root_path, status: :unprocessable_entity
+    if (current_user.administrator?)
+      @user = User.find(params[:id])
     end
+      if @user.update(user_params)
+        redirect_to user_path(@user), notice: 'Usuário atualizado com sucesso!', data: { turbo: false }
+      else
+        redirect_to root_path, status: :unprocessable_entity
+      end
+    
   end
 
   private
