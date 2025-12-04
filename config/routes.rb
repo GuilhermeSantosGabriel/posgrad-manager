@@ -3,6 +3,14 @@ Rails.application.routes.draw do
 
   resource :complete_registration, only: %i[show update]
 
+  # Jun, não me mata por isso
+  # Mas enquanto você não tiver um caminho pra users setado
+  # Não tenho como fazer os bgl de editar perfil
+  # Não sei mexer nas rotas que você setou pra admin/user separadamente
+  # então não vou tentar fazer nada complicado
+  # quando conseguir algo certo, pode deletar a linha de baixo
+  resources :users
+
   namespace :admin do
     resources :students,       only: %i[new create edit update]
     resources :professors,     only: %i[new create edit update]

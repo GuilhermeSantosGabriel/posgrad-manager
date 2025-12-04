@@ -4,7 +4,7 @@
 
         <!-- coisas de User -->
         <div>
-            <p> Nome: <%= @professor.user&.full_name %> </p>
+            <p> Nome: <%= @professor&.full_name %> </p>
             <p> Pronomes: <%= @professor.user&.pronoun %> </p>
             <p> NUSP: <%= @professor.user&.nusp %> </p>
             <p> Email: <%= @professor.user&.email %> </p>
@@ -31,7 +31,7 @@
                 <p> Resumo: <%= pub.abstract %> </p>
                 <p> Data: <%= pub.publication_date %> </p>
                 <p> Link: <%= pub.link %> </p>
-                <p> Aluno: <%= pub.student&.user&.full_name %> </p>
+                <p> Aluno: <%= pub.student&.full_name %> </p>
             <% end %>
         </div>
 

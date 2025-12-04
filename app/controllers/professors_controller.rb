@@ -74,7 +74,7 @@ class ProfessorsController < ApplicationController
 
   def set_students
     # estudantes que este professor orienta
-    student_ids = ProfessorMentorsStudent.where(professor: @professor).pluck(:student_id)
+    student_ids = Student.where(professor_id: @professor_id).pluck(:student_id)
     @students = Student.where(id: student_ids).order(:id)
   end
 

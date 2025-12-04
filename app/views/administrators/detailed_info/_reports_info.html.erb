@@ -1,7 +1,7 @@
 <div class="p-4 border rounded-md bg-white shadow-sm space-y-1">
 
   <p><strong>Aluno:</strong>
-    <%= report.student&.user&.full_name || "—" %>
+    <%= report.student&.full_name || "—" %>
   </p>
 
   <p><strong>Data de Envio:</strong>
@@ -9,7 +9,7 @@
   </p>
 
   <p><strong>Orientador:</strong>
-    <%= Professor.find_by(id: report.reviewer_id)&.user&.full_name || "—" %>
+    <%= Professor.find_by(id: report.reviewer_id)&.full_name || "—" %>
   </p>
 
   <p><strong>Status:</strong>

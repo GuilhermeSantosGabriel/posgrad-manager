@@ -86,10 +86,10 @@
   </div>
   
   <div class="summary">
-    <p><strong>Aluno:</strong> <%= @student.user&.full_name %></p>
+    <p><strong>Aluno:</strong> <%= @student&.full_name %></p>
     <p><strong>Email:</strong> <%= @student.user&.email %></p>
     <p><strong>Curso:</strong> <%= @student.program_level %></p>
-    <p><strong>Orientador:</strong> <%= @student.professor&.user&.full_name %></p>
+    <p><strong>Orientador:</strong> <%= @student.professor&.full_name %></p>
     <p><strong>Gerado em:</strong> <%= Time.current.strftime("%d/%m/%Y às %I:%M %p") %></p>
   </div>
 

@@ -12,8 +12,8 @@
                 <p> Resumo: <%= pub.abstract %> </p>
                 <p> Data: <%= pub.publication_date %> </p>
                 <p> Link: <%= pub.link %> </p>
-                <p> Aluno: <%= pub.student&.user&.full_name %> </p>
-                <p> Orientador: <%= pub.professor&.user&.full_name %> </p>
+                <p> Aluno: <%= pub.student&.full_name %> </p>
+                <p> Orientador: <%= pub.professor&.full_name %> </p>
             </div>
         <% end %>
     </div>

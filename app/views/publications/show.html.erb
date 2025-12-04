@@ -5,8 +5,8 @@
     <p> Resumo: <%= @publication.abstract %> </p>
     <p> Data: <%= @publication.publication_date %> </p>
     <p> Link: <%= @publication.link %> </p>
-    <p> Aluno: <%= @publication.student&.user&.full_name %> </p>
-    <p> Orientador: <%= @publication.professor&.user&.full_name %> </p>
+    <p> Aluno: <%= @publication.student&.full_name %> </p>
+    <p> Orientador: <%= @publication.professor&.full_name %> </p>
 
     <%= link_to "root", root_path %>
 </div>

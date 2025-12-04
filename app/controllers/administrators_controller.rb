@@ -4,7 +4,7 @@ class AdministratorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_administrator, only: %i[home show edit update]
   before_action :check_permissions
-  before_action :set_students, only: %i[home export_pdf]
+  before_action :set_students, only: %i[home]
   before_action :set_professors, only: %i[home]
   before_action :set_reports, only: %i[home]
   before_action :set_pending_reports, only: %i[home]

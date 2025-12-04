@@ -1,7 +1,6 @@
 class Professor < ApplicationRecord
   belongs_to :user
-  has_many :professor_mentors_students
-  has_many :students, through: :professor_mentors_students
+  has_many :students
   has_many :publications
   has_one :contact_info, through: :user
 

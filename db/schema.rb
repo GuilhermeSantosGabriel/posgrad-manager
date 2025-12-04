@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_28_031218) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_04_034932) do
   create_table "administrators", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,14 +25,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_28_031218) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_contact_infos_on_user_id"
-  end
-
-  create_table "professor_mentors_students", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "professor_id", null: false
-    t.integer "student_id", null: false
-    t.datetime "updated_at", null: false
-    t.index ["professor_id", "student_id"], name: "idx_on_professor_id_student_id_e35ecf3a04", unique: true
   end
 
   create_table "professors", force: :cascade do |t|
@@ -109,12 +101,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_28_031218) do
 
   create_table "students", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "credits", default: 0
-    t.integer "credits_needed", default: 0
     t.date "join_date"
     t.date "lattes_last_update"
     t.string "lattes_link"
     t.string "pretended_career"
+    t.integer "professor_id"
     t.string "program_level"
     t.integer "semester", default: 0
     t.datetime "updated_at", null: false
@@ -157,5 +148,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_28_031218) do
   add_foreign_key "report_infos", "professors", column: "reviewer_id"
   add_foreign_key "report_infos", "reports"
   add_foreign_key "report_infos", "students"
+  add_foreign_key "students", "professors"
   add_foreign_key "students", "users"
 end

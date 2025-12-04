@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_student, only: %i[home edit update change_professor]
+  before_action :set_student, only: %i[home update]
   before_action :check_permissions, only: %i[home edit]
   before_action :set_professor, only: %i[home]
   before_action :list_professors, only: %i[home]
@@ -36,13 +36,6 @@ class StudentsController < ApplicationController
     @student = Student.find_by(params[:id])
   end
 
-  def change_professor
-    return if ProfessorMentorsStudent.where(student: @student, professor: @professor).exists?
-
-    ProfessorMentorsStudent.where(student: @student).delete_all
-    ProfessorMentorsStudent.create!(student: @student, professor: @professor)
-  end
-
   def send_report
     @send = ReportInfo.find(params[:id])
     if @send.update!(owner: 'Professor', date_sent: Date.current, status: 'Sent')
@@ -53,14 +46,17 @@ class StudentsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path, notice: 'Você não possui autorização para essa ação.' unless @student.user == current_user
+    @student = Student.find(params[:id])
+    if (@student.user != current_user)
+      redirect_to root_path, notice: 'Você não possui autorização para essa ação.' unless current_user.administrator?
+    end
   end
 
   def update
     if @student.update!(student_params)
       redirect_to student_home_path, notice: 'Perfil atualizado com sucesso!'
     else
-      render :edit
+      redirect_to student_edit_path(id: @student.id)
     end
   end
 
@@ -71,8 +67,7 @@ class StudentsController < ApplicationController
   end
 
   def set_professor
-    professor_id = ProfessorMentorsStudent.where(student: @student).pluck(:professor_id).first
-    @professor = Professor.find_by(id: professor_id)
+    @professor = Professor.find_by(id: @student.professor_id)
   end
 
   def list_professors
@@ -80,8 +75,8 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:name, :student_id, :role, :email, :lattes_link, :lattes_last_update,
-                                    :pretended_career, :join_date)
+    params.require(:student).permit(:name, :student_id, :program_level, :lattes_link, :lattes_last_update,
+                                    :pretended_career, :join_date, :semester, :professor_id)
   end
 
   def check_permissions
