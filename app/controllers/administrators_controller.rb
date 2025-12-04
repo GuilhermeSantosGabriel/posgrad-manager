@@ -2,7 +2,7 @@ require 'zip'
 
 class AdministratorsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_administrator, only: %i[home show edit update]
+  before_action :set_administrator, only: %i[home show update]
   before_action :check_permissions
   before_action :set_students, only: %i[home]
   before_action :set_professors, only: %i[home]
