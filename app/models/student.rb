@@ -7,6 +7,8 @@ class Student < ApplicationRecord
   has_many :reports, through: :report_infos
   has_many :report_field_answers, through: :report_infos
 
+  before_save :update_lattes_timestamp, if: :will_save_change_to_lattes_link?
+
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :contact_info
   # attr_accessible :user_attributes, :contact_info_attributes
@@ -16,9 +18,10 @@ class Student < ApplicationRecord
   end
 
   def professor
-    if (self.professor_id != nil)
-      Professor.find(self.professor_id)
-    else nil
+    if !professor_id.nil?
+      Professor.find(professor_id)
+    else
+      nil
     end
   end
 
@@ -34,5 +37,11 @@ class Student < ApplicationRecord
     else
       0
     end
+  end
+
+  private
+
+  def update_lattes_timestamp
+    self.lattes_last_update = Date.today
   end
 end

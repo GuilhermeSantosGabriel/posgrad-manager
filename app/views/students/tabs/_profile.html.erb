@@ -6,7 +6,9 @@
     <div>
         <div class="flex items-center space-x-4">
             <h2 class="font-semibold text-lg text-blue-900"><%= student&.full_name   || 'N/A' %> </h2>
-            <h2 class="font text-xs text-gray-600"> <%= '(' + student&.user&.pronoun + ')' || '' %></h2>
+            <% if student.user.pronoun %>
+                <h2 class="font text-xs text-gray-600"> <%= '(' + student&.user&.pronoun + ')'%></h2>
+            <%end%>
         </div>
         <p class="text-sm text-gray-700">
         <% if @student&.program_level == "Doutorado" %>

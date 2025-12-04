@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_student, only: %i[home update]
+  before_action :set_student, only: %i[home edit update]
   before_action :check_permissions, only: %i[home edit]
   before_action :set_professor, only: %i[home]
   before_action :list_professors, only: %i[home]
@@ -33,7 +33,7 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @student = Student.find_by(params[:id])
+    @student = Student.find(params[:id])
   end
 
   def send_report
@@ -47,17 +47,29 @@ class StudentsController < ApplicationController
 
   def edit
     @student = Student.find(params[:id])
-    if (@student.user != current_user)
-      redirect_to root_path, notice: 'Você não possui autorização para essa ação.' unless current_user.administrator?
-    end
+    @user = @student.user
   end
 
   def update
-    if @student.update!(student_params)
-      redirect_to student_home_path, notice: 'Perfil atualizado com sucesso!'
-    else
-      redirect_to student_edit_path(id: @student.id)
+    @user = @student.user
+
+    ActiveRecord::Base.transaction do
+      @student.update!(student_params)
+
+      user_updates = { pronoun: params[:student][:pronoun] }
+
+      if params[:password].present?
+        user_updates[:password] = params[:password]
+        user_updates[:password_confirmation] = params[:password_confirmation]
+      end
+
+      @user.update!(user_updates)
     end
+
+    redirect_to edit_student_path(@student), notice: 'Perfil atualizado com sucesso!'
+  rescue ActiveRecord::RecordInvalid
+    flash.now[:alert] = 'Não foi possível salvar. Verifique os dados.'
+    render :edit, status: :unprocessable_entity
   end
 
   private
@@ -75,8 +87,7 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:name, :student_id, :program_level, :lattes_link, :lattes_last_update,
-                                    :pretended_career, :join_date, :semester, :professor_id)
+    params.require(:student).permit(:lattes_link, :pretended_career)
   end
 
   def check_permissions
