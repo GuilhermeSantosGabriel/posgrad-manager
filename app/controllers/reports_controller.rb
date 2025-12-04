@@ -73,13 +73,15 @@ class ReportsController < ApplicationController
     pdf = Prawn::Document.new(page_size: 'A4', margin: 30)
 
     pdf.fill_color '2762ff'
-    pdf.text "Aluno: #{@student.user&.full_name}", size: 16, style: :bold, align: :center
-    pdf.text "Email do aluno: #{@student.user&.email}", size: 16, style: :bold, align: :center
-    pdf.text "Programa: #{@student.program_level}", size: 16, style: :bold, align: :center
-    pdf.text "Professor orientador: #{@student.professor&.user&.full_name}", size: 16, style: :bold, align: :center
-    pdf.text "Gerado em: #{Time.current.strftime('%d/%m/%Y às %I:%M %p')}", size: 16, style: :bold, align: :center
-
+    pdf.text "Relatório: #{@report.semester}º Semestre de #{@report.year}", size: 14, style: :bold, align: :center
+    pdf.text "Programa: #{@student.program_level}", size: 14, style: :bold, align: :center
+    pdf.text "Aluno: #{@student.user&.full_name}", size: 14, style: :bold, align: :center
     pdf.move_down 20
+    pdf.text "Professor orientador: #{@student.professor&.user&.full_name}", size: 14, align: :right
+    pdf.text "Email do aluno: #{@student.user&.email}", size: 14, align: :right
+    pdf.text "Gerado em: #{Time.current.strftime('%d/%m/%Y às %I:%M %p')}", size: 14, align: :right
+
+    pdf.move_down 40
     pdf.fill_color '9212ff'
     pdf.text 'Respostas:', size: 16, style: :bold
 
@@ -95,8 +97,9 @@ class ReportsController < ApplicationController
       pdf.stroke_horizontal_rule
     end
 
+    file_name = "#{@student.user.full_name.parameterize}_#{@report.semester}_#{@report.year}.pdf"
     send_data pdf.render,
-              filename: 'relatorio.pdf',
+              filename: file_name,
               type: 'application/pdf',
               template: 'reports/export_pdf',
               formats: %i[html pdf],
