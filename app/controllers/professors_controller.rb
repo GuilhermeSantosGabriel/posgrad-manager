@@ -1,6 +1,6 @@
 class ProfessorsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_professor, only: %i[home edit update]
+  before_action :set_professor, only: %i[home update]
   before_action :check_permissions, only: %i[home edit]
   before_action :set_students, only: %i[home]
 
@@ -34,7 +34,18 @@ class ProfessorsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path, notice: "You're not authorized." unless @professor.user == current_user
+    @professor = Professor.find(params[:id])
+    if (@professor.user != current_user)
+      redirect_to root_path, notice: 'Você não possui autorização para essa ação.' unless current_user.administrator?
+    end
+  end
+
+  def update
+    if @professor.update!(professor_params)
+      redirect_to professor_home_path, notice: 'Perfil atualizado com sucesso!'
+    else
+      redirect_to professor_edit_path(id: @professor.id)
+    end
   end
 
   def update
@@ -74,7 +85,7 @@ class ProfessorsController < ApplicationController
 
   def set_students
     # estudantes que este professor orienta
-    student_ids = Student.where(professor_id: @professor_id).pluck(:student_id)
+    student_ids = Student.where(professor_id: @professor.id).pluck(:id)
     @students = Student.where(id: student_ids).order(:id)
   end
 

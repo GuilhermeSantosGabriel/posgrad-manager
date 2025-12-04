@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # Não sei mexer nas rotas que você setou pra admin/user separadamente
   # então não vou tentar fazer nada complicado
   # quando conseguir algo certo, pode deletar a linha de baixo
+  # !! Se você deixar descomentado, as rotas de login/logout NÃO FUNCIONAM
+  # !! mas se deixar comentado, não da pra editar perfil nem nada do tipo
+  # descobre como que faz a rota certa, onegai m(_ _)m
   resources :users
 
   namespace :admin do
